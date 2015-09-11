@@ -4,9 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var multer  = require('multer');
+var session = require('express-session');// session模块
+var MongoStore = require('connect-mongo')(session);// 数据库连接中间件
+var multer  = require('multer');// 上传中间件
 
 var routes = require('./routes/index');
 var settings = require('./settings');
@@ -37,7 +37,7 @@ app.use(session({
 		port: settings.port
 	})
 }));
-app.use(multer({
+app.use(multer({// 上传图片
 	dest: './public/images',
 	rename: function(fieldname, filename) {
 		return filename;
