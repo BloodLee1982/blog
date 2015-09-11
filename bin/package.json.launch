@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.nodeclipse.ui.npm.LaunchConfigurationType">
+<stringAttribute key="key_file_path" value="/blog/package.json"/>
+<stringAttribute key="key_goal" value="install"/>
+<stringAttribute key="org.eclipse.debug.ui.ATTR_CAPTURE_IN_FILE" value="${workspace_loc:/blog}"/>
+<listAttribute key="org.eclipse.debug.ui.favoriteGroups">
+<listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>
+</listAttribute>
+</launchConfiguration>
