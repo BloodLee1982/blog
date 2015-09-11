@@ -3,9 +3,12 @@ var crypto = require('crypto'),
     Post = require('../models/post.js');
 
 module.exports = function(app) {
-	
+  
+  /**
+   * 进入首页
+   */
   app.get('/', function (req, res) {
-	  Post.get(null, function(err, posts) {
+	  Post.get(null, function(err, posts) {// 获取用blog条目
 			 if(err) {
 				 posts = [];
 			 }
@@ -19,6 +22,9 @@ module.exports = function(app) {
 		 });
   });
   
+  /**
+   * 用户注册页面
+   */
   app.get('/reg', checkNotLogin);
   app.get('/reg', function (req, res) {
 	 res.render('reg', { 
@@ -29,6 +35,9 @@ module.exports = function(app) {
 	 });
   });
   
+  /**
+   * 注册用户
+   */
   app.post('/reg', checkNotLogin);
   app.post('/reg', function (req, res) {
 	 var name = req.body.name,
@@ -70,6 +79,9 @@ module.exports = function(app) {
 	 });
   });
   
+  /**
+   * 用户名登录页面
+   */
   app.get('/login', checkNotLogin);
   app.get('/login', function (req, res) {
 	 res.render('login', { 
@@ -80,6 +92,9 @@ module.exports = function(app) {
 	 });
   });
   
+  /**
+   * 用户登录
+   */
   app.post('/login', checkNotLogin);
   app.post('/login', function (req, res) {
 	  //生成密码的 md5 值
@@ -103,6 +118,9 @@ module.exports = function(app) {
 	  });
   });
   
+  /**
+   * 用户发布blog页面
+   */
   app.get('/post', checkLogin);
   app.get('/post', function (req, res) {
 	 res.render('post', { 
@@ -113,6 +131,9 @@ module.exports = function(app) {
 	 });
   });
   
+  /**
+   * 用户名发布blog
+   */
   app.post('/post', checkLogin);
   app.post('/post', function(req, res) {
 	  var currentUser = req.session.user,
@@ -127,6 +148,9 @@ module.exports = function(app) {
 	  });
   });
   
+  /**
+   * 用户登出
+   */
   app.get('/logout', checkLogin);
   app.get('/logout', function(req, res) {
 	  req.session.user = null;
@@ -134,6 +158,9 @@ module.exports = function(app) {
 	  res.redirect('/');
   });
   
+  /**
+   * 用户上传图片页面
+   */
   app.get('/upload', checkLogin);
   app.get('/upload', function(req, res) {
 	 res.render('upload', {
@@ -144,12 +171,18 @@ module.exports = function(app) {
 	 });
   });
   
+  /**
+   * 用户上传图片
+   */
   app.post('/upload', checkLogin);
   app.post('/upload', function (req, res) {
 	 req.flash('success', '文件上传成功！');
 	 res.redirect('/upload');
   });
   
+  /**
+   * 检查用户是否为已登录状态
+   */
   function checkLogin(req, res, next) {
 	  if(!req.session.user) {
 		  req.flash('error', '未登录！');
@@ -158,6 +191,9 @@ module.exports = function(app) {
 	  next();
   }
   
+  /**
+   * 检查用户是否为未登录状态
+   */
   function checkNotLogin(req, res, next) {
 	  if(req.session.user) {
 		  req.flash('error', '已登录！');
