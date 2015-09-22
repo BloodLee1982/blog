@@ -305,6 +305,10 @@ module.exports = function(app) {
 	    res.redirect('back');
 	  });
 	});
+
+	app.get('/angt', function(req, res) {
+		res.render('todo');
+	});
   
   /**
    * 检查用户是否为已登录状态
